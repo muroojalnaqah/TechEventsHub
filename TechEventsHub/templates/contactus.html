@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+    <!-- Contact Us -->
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="contact-box p-4" style="max-width: 500px; width: 100%; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <h1 class="h3 mb-3 fw-normal" style="color: #333;">Contact Us</h1>
+            <form>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingName" placeholder="Full Name">
+                    <label for="floatingName" style="color: #555;">Full Name</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+                    <label for="floatingEmail" style="color: #555;">Email address</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="floatingMessage" placeholder="Your message" style="height: 150px;"></textarea>
+                    <label for="floatingMessage" style="color: #555;">Message</label>
+                </div>
+                
+                <button class="btn w-100 py-2" type="submit" style="background-color: #5FA5AC; color: white;">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
