@@ -7,7 +7,12 @@ from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    return render(request, "home.html")
+    #user=auth.authenticate(username=username, password=password)
+    print(request.user.id)
+    users = UserInfo.objects.filter(user_id=request.user.id)
+    fullname = users[0].fullname
+    #print(users[0].fullname)
+    return render(request, "home.html", {"fullname": fullname})
 
 def login(request):
     if request.method =="POST":
@@ -37,7 +42,7 @@ def register(request):
 
         if User.objects.filter(username=username).exists():
             messages.info(request, "Username is already taken")
-            return HttpResponseRedirect("register")
+            return HttpResponseRedirect("contactus")
         else:
             user=User.objects.create_user(username=username, password=password)
             user.save()
@@ -49,7 +54,37 @@ def register(request):
     return render(request, "register.html")
 
 def contactus(request):
-    return render(request, "contactus.html")
+    if request.method == "POST":
+        fullname = request.POST['fullname']
+        emailaddress = request.POST['emailaddress']
+        messege = request.POST['messege']
+
+        
+        
+            
+        contactInfo = ContactInfo.objects.create(fullname=fullname, emailaddress=emailaddress, messege=messege)
+        contactInfo.save()
+        return redirect("home")
+    return render(request,"contactus.html")
+    
 
 def user(request):
-    return render(request, "user.html")
+    print(request.user.id)
+    users = UserInfo.objects.filter(user_id=request.user.id)
+    fullname = users[0].fullname
+    university = users[0].university
+    major= users[0].major
+    return render(request, "user.html", {"fullname": fullname,"university": university,"major": major})
+
+
+def aboutus(request):
+    return render(request, "aboutus.html")
+
+
+
+
+
+
+
+
+

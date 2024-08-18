@@ -13,6 +13,11 @@ class UserInfo(models.Model):
 def __str__(self):
     return f"{self.fullname}"
 
+class ContactInfo(models.Model):
+    fullname=models.CharField(max_length=100)
+    emailaddress=models.CharField(max_length=100)
+    messege=models.CharField(max_length=100)
 
-
+def __str__(self):
+    return f"{self.fullname}"
     
