@@ -81,6 +81,22 @@ def aboutus(request):
     return render(request, "aboutus.html")
 
 
+def courses(request):
+    return render(request,"courses.html")
+
+
+def events(request):
+    return render(request,"events.html")
+
+def useredit(request):
+    print(request.user.id)
+    users = UserInfo.objects.filter(user_id=request.user.id)
+    fullname = users[0].fullname
+    university = users[0].university
+    major= users[0].major
+    return render(request, "useredit.html", {"fullname": fullname,"university": university,"major": major})
+
+
 
 
 

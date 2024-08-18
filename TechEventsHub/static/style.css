@@ -130,6 +130,10 @@ body {
     border-color: #5FA5AC;
 }
 
+.btn-outline-light{
+    background:#5FA5AC;
+    color: white;
+}
 .profile-button {
     background: #5FA5AC;
     box-shadow: none;
