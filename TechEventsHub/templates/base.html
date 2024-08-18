@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- Background Image -->
+    <div class="bg-image"></div>
+
+    <!-- Navigation -->
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="/" class="d-inline-flex align-items-center text-decoration-none">
+                    <img src="{% static 'logo.jpeg' %}" alt="Company Logo" width="150" height="100" class="me-2">
+                </a>
+            </div>
+
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 text-white"><strong>Home</strong></a></li>
+                <li><a href="#" class="nav-link px-2 text-white"><strong>Events</strong></a></li>
+                <li><a href="#" class="nav-link px-2 text-white"><strong>Courses</strong></a></li>
+                <li><a href="{%url 'contactus'%}" class="nav-link px-2 text-white"><strong>Contact us</strong></a></li>
+                <li><a href="{%url 'aboutus'%}" class="nav-link px-2 text-white"><strong>About us</strong></a></li>
+            </ul>
+
+            {% if user.is_authenticated %}
+            <div class="col-md-3 text-end">
+                
+                <a href="{%url 'user'%}"type="button" class="btn btn-outline-light">{{fullname}}</a>
+                <a href="" type="button" class="btn btn-light" style="color:black;">Logout</a>
+            </div>
+
+
+            {% else %}
+            <div class="col-md-3 text-end">
+                <a href="{%url 'login'%}" type="button" class="btn btn-outline-light" style="color:black;">Login</a>
+                <a href="{%url 'register'%}" type="button" class="btn btn-light">Sign-up</a>
+            </div>
+            {% endif %}
+
+        </header>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="container d-flex flex-wrap justify-content-center mb-4">
+        <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+            <input type="search" class="form-control search-bar" placeholder="Search..." aria-label="Search">
+        </form>
+    </div>
+
+    {% block content %}
+    {% endblock content %}
+
+    <!-- Footer -->
+    <div class="container ">
+        <footer class="py-5">
+            <div class="row">
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Home</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Courses</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Events</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Contact us</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">About us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>More</h5> 
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Sign in</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Log in</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Profile</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 offset-md-2 mb-3 text-md-end">
+                    <img src="{% static 'logo.jpeg' %}" alt="Company Logo" class="footer-logo mb-3">
+                    <div class="footer-social-icons">
+                        <a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" alt="Instagram" class="social-icon"></a>
+                        <a href="#"><img src="https://img.icons8.com/fluent/48/000000/linkedin.png" alt="LinkedIn" class="social-icon"></a>
+                        <a href="#"><img src="https://img.icons8.com/fluent/48/000000/twitter.png" alt="Twitter" class="social-icon"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

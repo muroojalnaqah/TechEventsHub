@@ -1,45 +1,166 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechEventsHub</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-</head>
-<body>
-    <!-- Your content will go here -->
-    <div class="design">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0">
-            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-            </a>
+{%extends 'base.html'%}
+{% load static %}
+
+{%block content %}
+
+   
+
+    <!-- Picture 1 -->
+    <div class="picture-background">
+        <div class="col-lg-6 px-0">
+            <h1 class="display-4 fst-italic"><strong>Welcome to TechEventsHub</strong></h1>
+            <p class="lead my-3">Connecting You with the Future of Technology!</p>
+            <p class="lead mb-0"><a href="{%url 'aboutus'%}" class="text-body-emphasis fw-bold">Continue reading...</a></p>
         </div>
+    </div>
+
+    <!-- Featurettes -->
+    <div class="container">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1"><em>Welcome to TechEventsHub.</em> <span class="text-body-secondary"><!--<em>It’ll blow your mind.</em>--></span></h2>
+                <p class="lead">Your ultimate destination for discovering and staying updated with the latest technology-related classes, courses, and events happening both in-person and online throughout the year.
+                    At TechEventsHub, we compile and organize information from various sources to make it easy for tech enthusiasts, students, professionals, and educators to find and participate in valuable learning opportunities. Whether you're looking to advance your career, stay abreast of the latest tech trends, or simply indulge in your passion for technology, TechEventsHub has something for everyone.</p>
+            </div>
+            <div class="col-md-5">
+                <img src="https://img.freepik.com/free-photo/ai-chip-intelligence-technology-deep-learning_53876-143122.jpg?ga=GA1.2.724830662.1722592916" class="featurette-image resizable-image img-fluid mx-auto" alt="Featurette Image">
+            </div>
+        </div>
+    </div>
+
+    <!--Coursel-->
+    <div id="slider-container">
+        <div id="slider">
+            <div class="slider-item">
+                <img src="{%static 'image1.jpg' %}" alt="Image 1">
+                <div class="text-overlay">
+                    <h3>Title 1</h3>
+                    <p>Description 1</p>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="{%static 'image2.jpg' %}" alt="Image 2">
+                <div class="text-overlay">
+                    <h3>Title 2</h3>
+                    <p>Description 2</p>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="{%static 'image3.jpg' %}" alt="Image 3">
+                <div class="text-overlay">
+                    <h3>Title 3</h3>
+                    <p>Description 3</p>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="{%static 'image4.jpg' %}" alt="Image 4">
+                <div class="text-overlay">
+                    <h3>Title 4</h3>
+                    <p>Description 4</p>
+                </div>
+            </div>
+        </div>
+    </div>
     
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2">Features</a></li>
-            <li><a href="#" class="nav-link px-2">Pricing</a></li>
-            <li><a href="#" class="nav-link px-2">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2">About</a></li>
-        </ul>
-        <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">Login</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
-        </div>
-          <form class="w-100 me-3" role="search">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-          </form>
-        
-      
+    <button id="prevBtn">Back</button>
+    <button id="nextBtn">Next</button>
+    
+    <style>
+        #slider-container {
+            position: relative;
+            width: 1000px;
+            max-width: 1000px;
+            margin: auto;
+            overflow: hidden;
+        }
+    
+        #slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+    
+        .slider-item {
+            position: relative;
+            flex: 1 0 33.333%;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: filter 0.3s ease;
+            
+        }
+    
+        .slider-item img {
+            width: 300px;
+            height: 300px;
+            display: block;
+        }
+    
+        .text-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+        }
+    
+        .slider-item:hover.overlay {
+            filter: brightness(1.2);
+            bottom: 0;
+            height: 100%;
+        }
+
+    
+        #prevBtn,
+        #nextBtn {
+            position: absolute;
+            top: 75%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    
+        #prevBtn {
+            left: 10px;
+        }
+    
+        #nextBtn {
+            right: 10px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.getElementById('slider');
+            const sliderItems = Array.from(document.querySelectorAll('.slider-item'));
+            const totalItems = sliderItems.length;
+            const visibleItems = 3; // Number of visible items at a time 
+            let index = 0;
+    
+            function updateSliderPosition() {
+                slider.innerHTML = '';
+                for (let i = 0; i < visibleItems; i++) {
+                    slider.appendChild(sliderItems[(index + i) % totalItems].cloneNode(true));
+                }
+            }
+    
+            document.getElementById('nextBtn').addEventListener('click', function () {
+                index = (index + 1) % totalItems;
+                updateSliderPosition();
+            });
+    
+            document.getElementById('prevBtn').addEventListener('click', function () {
+                index = (index - 1 + totalItems) % totalItems;
+                updateSliderPosition();
+            });
+    
+            updateSliderPosition();
+        });
+    </script>
     
     
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+
+{%endblock content%}
