@@ -20,4 +20,6 @@ class ContactInfo(models.Model):
 
 def __str__(self):
     return f"{self.fullname}"
+
+
     

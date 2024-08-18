@@ -81,6 +81,17 @@ def aboutus(request):
     return render(request, "aboutus.html")
 
 
+def courses(request):
+    return render(request,"courses.html")
+
+
+def events(request):
+    return render(request,"events.html")
+
+def useredit(request):
+    return render(request,"useredit.html")
+
+
 
 
 
