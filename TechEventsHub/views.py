@@ -1,18 +1,20 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect 
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from .models import * #import all 
 from django.contrib import messages
+import pandas as pd
 
 
 # Create your views here.
 def home(request):
     #user=auth.authenticate(username=username, password=password)
-    print(request.user.id)
-    users = UserInfo.objects.filter(user_id=request.user.id)
-    fullname = users[0].fullname
+    #print(request.user.id)
+    #users = UserInfo.objects.filter(user_id=request.user.id)
+    #fullname = users[0].fullname
     #print(users[0].fullname)
-    return render(request, "home.html", {"fullname": fullname})
+    #return render(request, "home.html", {"fullname": fullname})
+    return render(request, "home.html")
 
 def login(request):
     if request.method =="POST":
@@ -42,7 +44,7 @@ def register(request):
 
         if User.objects.filter(username=username).exists():
             messages.info(request, "Username is already taken")
-            return HttpResponseRedirect("contactus")
+            return HttpResponseRedirect("register")
         else:
             user=User.objects.create_user(username=username, password=password)
             user.save()
@@ -82,7 +84,10 @@ def aboutus(request):
 
 
 def courses(request):
-    return render(request,"courses.html")
+    excel_file='TechEventsHub\static\courses.xlsx'
+    df = pd.read_excel(excel_file)
+    data= df.to_dict(orient='records')
+    return render(request,"courses.html", {'data':data})
 
 
 def events(request):
@@ -94,7 +99,38 @@ def useredit(request):
     fullname = users[0].fullname
     university = users[0].university
     major= users[0].major
+    if request.method =="POST":
+        #username= request.POST['username']
+        fullname=request.POST['fullname']  
+        university=request.POST['university']
+        major=request.POST['major']
+        print(request.user.id)
+        print("inside useredit if statement")
+        #users = UserInfo.objects.filter(user_id=request.user.id)
+        users.update(fullname=fullname, university=university, major=major)
+        return HttpResponseRedirect("user")
     return render(request, "useredit.html", {"fullname": fullname,"university": university,"major": major})
+
+def update(request):
+    if request.method =="POST":
+        username= request.POST['username']
+        fullname=request.POST['fullname']  
+        university=request.POST['university']
+        major=request.POST['major']
+        print(request.user.id)
+
+        users = UserInfo.objects.filter(user_id=request.user.id)
+        users.update(username=username, fullname=fullname, university=university, major=major)
+        return redirect("user")
+    return render(request,"useredit.html")
+    
+
+       
+
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('home'))
+
 
 
 
