@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Login -->
    
-    <div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="">
         <div class="login-box p-4" style="max-width: 500px; height: 350px; width: 100%; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             <form action="" method="POST">
                 {%csrf_token%}
@@ -15,7 +15,7 @@
                 <input class="form-control" id="username" name="username" placeholder="UserName" style="color:black;">
                 </div>
                 <div class="form-floating">
-                <label for="floatingPassword" style="color: #555;">Password</label>
+                <label for="floatingPassword" style="color: #555; margin-top: 10px;">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="color:black;">
                 </div>
             

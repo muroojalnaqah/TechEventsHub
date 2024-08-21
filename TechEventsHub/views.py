@@ -3,18 +3,21 @@ from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from .models import * #import all 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import pandas as pd
 
-
+global courses_data
+courses_data = {}
 # Create your views here.
 def home(request):
-    #user=auth.authenticate(username=username, password=password)
-    #print(request.user.id)
-    #users = UserInfo.objects.filter(user_id=request.user.id)
-    #fullname = users[0].fullname
-    #print(users[0].fullname)
-    #return render(request, "home.html", {"fullname": fullname})
-    return render(request, "home.html")
+    if request.user.id is not None:
+        print(request.user.id)
+        users = UserInfo.objects.filter(user_id=request.user.id)
+        fullname = users[0].fullname
+        print(users[0].fullname)
+        return render(request, "home.html", {"fullname": fullname})
+    else:
+        return render(request, "home.html")
 
 def login(request):
     if request.method =="POST":
@@ -56,18 +59,32 @@ def register(request):
     return render(request, "register.html")
 
 def contactus(request):
-    if request.method == "POST":
-        fullname = request.POST['fullname']
-        emailaddress = request.POST['emailaddress']
-        messege = request.POST['messege']
+    if request.user.id is not None: 
+        print(request.user.id)
+        users = UserInfo.objects.filter(user_id=request.user.id)
+        fullnames = users[0].fullname
+        print(users[0].fullname)
+        if request.method == "POST":
+            fullname = request.POST['fullname']
+            emailaddress = request.POST['emailaddress']
+            messege = request.POST['messege']  
+            contactInfo = ContactInfo.objects.create(fullname=fullname, emailaddress=emailaddress, messege=messege)
+            contactInfo.save()
+            return render(request, "home.html", {"fullname": fullnames})
+        return render(request, "contactus.html", {"fullname": fullnames})
 
+    elif request.method == "POST":
+            fullname = request.POST['fullname']
+            emailaddress = request.POST['emailaddress']
+            messege = request.POST['messege']  
+            contactInfo = ContactInfo.objects.create(fullname=fullname, emailaddress=emailaddress, messege=messege)
+            contactInfo.save()
+            #return redirect("home")
+            return render(request, "home.html")
+
+    else:
         
-        
-            
-        contactInfo = ContactInfo.objects.create(fullname=fullname, emailaddress=emailaddress, messege=messege)
-        contactInfo.save()
-        return redirect("home")
-    return render(request,"contactus.html")
+        return render(request,"contactus.html")
     
 
 def user(request):
@@ -80,19 +97,110 @@ def user(request):
 
 
 def aboutus(request):
-    return render(request, "aboutus.html")
+    if request.user.id is not None:
+        print(request.user.id)
+        users = UserInfo.objects.filter(user_id=request.user.id)
+        fullname = users[0].fullname
+        print(users[0].fullname)
+        return render(request, "aboutus.html", {"fullname": fullname})
+    else:
+        return render(request, "aboutus.html")
+    
 
-
+@login_required(login_url="login")
 def courses(request):
     excel_file='TechEventsHub\static\courses.xlsx'
     df = pd.read_excel(excel_file)
-    data= df.to_dict(orient='records')
-    return render(request,"courses.html", {'data':data})
+    courses_data= df.to_dict(orient='records')
+    #print(f'"Courses at if statement {courses_data}"')
+
+    #check if user exist:
+    if request.user.id is not None:
+        #print('inside if statement of courses')
+        #print(courses_data)
+        print(request.user.id)
+        users = UserInfo.objects.filter(user_id=request.user.id)
+        fullname = users[0].fullname
+        print(users[0].fullname) 
+       # print("inside courses")
+        return render(request,"courses.html", {'data': courses_data, "fullname": fullname})
+
+    return render(request,"courses.html", {'data':courses_data})
 
 
+
+def courses_search_result(request):
+    if request.method == "GET":
+        query = request.GET.get('search', '')
+
+        if query:
+            excel_file='TechEventsHub\static\courses.xlsx'
+            df = pd.read_excel(excel_file)
+            search_results = df[df.apply(lambda row: row.astype(str).str.contains(query, case=False, na=False).any(), axis=1)]
+            results_dict = search_results.to_dict(orient='records')
+
+            if request.user.id is not None:
+                users = UserInfo.objects.filter(user_id=request.user.id)
+                fullname = users[0].fullname
+                context = {'data': results_dict, "fullname": fullname}
+                return render(request, "courses.html", context)
+            
+
+                context = {'data': results_dict}
+                return render(request, "courses.html", context)
+
+    return render(request, "courses.html")
+
+
+
+
+
+
+@login_required(login_url="login")
 def events(request):
-    return render(request,"events.html")
+    excel_file='TechEventsHub\static\events.xlsx'
+    df = pd.read_excel(excel_file)
+    events_data= df.to_dict(orient='records')
 
+    if request.user.id is not None:
+        print(request.user.id)
+        users = UserInfo.objects.filter(user_id=request.user.id)
+        fullname = users[0].fullname
+        print(users[0].fullname) 
+        return render(request, "events.html", {'data':events_data, "fullname":fullname})
+
+    
+
+    return render(request,"events.html", {'data':events_data})
+
+
+    
+
+    
+
+def events_search_result(request):
+    print("inside events search")
+    if request.method == "GET":
+        query = request.GET.get('search', '')
+
+        if query:
+            excel_file='TechEventsHub\static\events.xlsx'
+            df = pd.read_excel(excel_file)
+            search_results = df[df.apply(lambda row: row.astype(str).str.contains(query, case=False, na=False).any(), axis=1)]
+            results_dict = search_results.to_dict(orient='records')
+
+            if request.user.id is not None:
+                users = UserInfo.objects.filter(user_id=request.user.id)
+                fullname = users[0].fullname
+                context = {'data': results_dict, "fullname": fullname}
+                return render(request, "events.html", context)
+
+            context = {'data': results_dict}
+            return render(request, "events.html", context)
+
+    return render(request, "events.html")
+
+     
 def useredit(request):
     print(request.user.id)
     users = UserInfo.objects.filter(user_id=request.user.id)

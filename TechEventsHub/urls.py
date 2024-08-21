@@ -13,6 +13,8 @@ urlpatterns = [
     path('useredit', views.useredit, name = "useredit"),
     path('logout', views.logout, name = "logout"),
     path('update', views.update, name = "update"),
+    path('courses_search_result', views.courses_search_result, name = "courses_search_result"),
+    path('events_search_result', views.events_search_result, name = "events_search_result"),
 
 
 ]
