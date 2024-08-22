@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website</title>
+    <title>TechEventsHub</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'style.css' %}" rel="stylesheet">
@@ -13,11 +13,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Load icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <!-- Background Image -->
     <div class="bg-image"></div>
+    
 
     <!-- Navigation -->
     <div class="container">
@@ -30,8 +33,8 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{%url 'home'%}" class="nav-link px-2 text-white"><strong>Home</strong></a></li>
-                <li><a href="#" class="nav-link px-2 text-white"><strong>Events</strong></a></li>
-                <li><a href="#" class="nav-link px-2 text-white"><strong>Courses</strong></a></li>
+                <li><a href="{%url 'events'%}" class="nav-link px-2 text-white"><strong>Events</strong></a></li>
+                <li><a href="{%url 'courses'%}" class="nav-link px-2 text-white"><strong>Courses</strong></a></li>
                 <li><a href="{%url 'contactus'%}" class="nav-link px-2 text-white"><strong>Contact us</strong></a></li>
                 <li><a href="{%url 'aboutus'%}" class="nav-link px-2 text-white"><strong>About us</strong></a></li>
             </ul>
@@ -40,26 +43,21 @@
             <div class="col-md-3 text-end">
                 
                 <a href="{%url 'user'%}"type="button" class="btn btn-outline-light" style="background: #5FA5AC;">{{fullname}}</a>
-                <a href="" type="button" class="btn btn-light" style="color:black;">Logout</a>
+                <a href="{%url 'logout'%}" type="button" class="btn btn-light" style="color:black; background: white;">Logout</a>
             </div>
 
 
             {% else %}
             <div class="col-md-3 text-end">
-                <a href="{%url 'login'%}" type="button" class="btn btn-outline-light" style="color:black;">Login</a>
-                <a href="{%url 'register'%}" type="button" class="btn btn-light">Sign-up</a>
+                <a href="{%url 'login'%}" type="button" class="btn btn-outline-light" style="color:black; background: white;">Login</a>
+                <a href="{%url 'register'%}" type="button" class="btn btn-light" style="color:black;">Sign-up</a>
             </div>
             {% endif %}
 
         </header>
     </div>
 
-    <!-- Search Bar -->
-    <div class="container d-flex flex-wrap justify-content-center mb-4">
-        <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-            <input type="search" class="form-control search-bar" placeholder="Search..." aria-label="Search">
-        </form>
-    </div>
+    
 
     {% block content %}
     {% endblock content %}
@@ -69,7 +67,7 @@
         <footer class="py-5">
             <div class="row">
                 <div class="col-6 col-md-2 mb-3">
-                    <h5>Quick Links</h5>
+                    <h5 style="font-size: 18px;">QUICK LINKS</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Home</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Courses</a></li>
@@ -80,7 +78,7 @@
                 </div>
 
                 <div class="col-6 col-md-2 mb-3">
-                    <h5>More</h5> 
+                    <h5 style="font-size: 18px;">MORE</h5> 
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Sign in</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 footer-link">Log in</a></li>

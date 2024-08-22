@@ -6,10 +6,13 @@
 
 
 <div class="container rounded bg-white mt-4 mb-4" style="max-width: 700px; width: 100%;" >
-    <div class="row justify-content-center">
+    <form action="" method="POST">
         {%csrf_token%}
+    <div class="row justify-content-center">
+        
+        
         <div class="col-md-4 border-right">
-            <div class="d-flex flex-column align-items-center text-center px-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center px-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span></span></div>
         </div>
         <div class="col-md-5">
             <div class="p-2 py-4">
@@ -17,17 +20,20 @@
                     <h4 class="text-right" style="color: black;">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><h4 type="text" class="form-control" style="color: black;">{{fullname}}</h4></div>
-                    <div class="col-md-6"><label class="labels">UserName</label><h4 type="text" class="form-control" style="color: black;">{{user}}</h4></div>
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" style="color: black;" value="{{fullname}}" id="fullname" name="fullname"></input></div>
+                   <!--<div class="col-md-6"><label class="labels">UserName</label><input type="text" class="form-control" style="color: black;" value="{{user}}" id="user" name="user"></input></div>-->
                 </div>
                 <div class="mt-3">
-                    <div class=""><label class="labels">University</label><h4 type="text" class="form-control" style="color: black;">{{university}}</h4></div>
-                    <div class=""><label class="labels">Major</label><h4 type="text" class="form-control" style="color: black;">{{major}}</h4></div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Update</button></div>
+                    <div class=""><label class="labels">University</label><input type="text" class="form-control" style="color: black;" value="{{university}}" id="university" name="university"></input></div>
+                    <div class=""><label class="labels">Major</label><input type="text" class="form-control" style="color: black;" value="{{major}}" id="major" name="major"></input></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" href="">Update</button></div>
             </div>
         </div>
+
     </div>
+
 </div>
+</form>
 </div>
 
 
