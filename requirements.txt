@@ -9,7 +9,6 @@ filelock==3.12.2
 gunicorn==23.0.0
 numpy==2.0.1
 openpyxl==3.1.5
-packaging @ file:///private/tmp/sip--packaging-20211204-96267-1dmmwtc/packaging-21.3
 pandas==2.2.2
 platformdirs==3.9.1
 pyparsing==3.0.6
