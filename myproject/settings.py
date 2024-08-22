@@ -9,28 +9,50 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os 
+import secrets
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    default=secrets.token_urlsafe[nbytes=64],
+)
+
+IS_HEROKU_APP="DYNO" in os.environ and not "CI" in os.environ
+
+
+
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6zv-)jng5d)(o$o2g^7x-q$&539b3#0ypen#c*0hf6e#n0j0=q'
+#SECRET_KEY = 'django-insecure-6zv-)jng5d)(o$o2g^7x-q$&539b3#0ypen#c*0hf6e#n0j0=q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if not IS_HEROKU_APP:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ["TechEventsHub.heroku.com"]
+else:
+    ALLOWED_HOSTS = [".localhost","127.0.0.1","[::1]", "0.0.0.0"]
+
+
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nonstatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +63,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware,WhiteNoiseMiddleWare",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -116,7 +139,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+STATIC_ROOT = BASE_DIR/"staticfiles"
 STATIC_URL = 'static/'
+
+STORAGES={
+    "staticfiles":{
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+}
+WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
